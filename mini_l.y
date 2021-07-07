@@ -48,4 +48,25 @@ statement: var ASSIGN expression { printf("statement -> var ASSIGN expression\n"
             | CONTINUE { printf("statement -> CONTINUE\n");}
             | RETURN expression {printf("statement -> RETURN expression\n");}
         ;
+
+multiplicative-expr: term {printf("term\n");}
+                    | term MULT multiplicative-expr {printf("term MULT multiplicative-expr\n");}
+                    | term DIV multiplicative-expr {printf("term DIV multiplicative-expr\n");} */still needs more*/
+
+term: MINUS var {printf("MINUS var\n");}
+    | MINUS NUMBER {printf("MINUS NUMBER\n");}
+    | MINUS L_PAREN expression R_PAREN {printf("MINUS R_PAREN expression L_PAREN"\n);}
+    | var {printf("var\n");}
+    | NUMBER {printf("NUMBER\n");}
+    | L_PAREN expression R_PAREN {printf("R_PAREN expression L_PAREN"\n);}
+    | IDENT L_PAREN expression R_PAREN {printf("IDENT L_PAREN expression R_PAREN\n");}
+    | IDENT L_PAREN expressions R_PAREN {printf("IDENT L_PAREN expressions R_PAREN\n");}
+    ;
+
+vars:   /*empty*/ {printf("statements -> epsilon\n");}
+        |var COMMA vars {printf("vars -> var COMMA vars\n");}
+        ;
+var: IDENT {printf("IDENT\n");}
+    | IDENT L_SQUARE_BRACKET expression R_SQUARE_BRACKET {printf("IDENT L_SQUARE_BRACKET expression R_SQUARE_BRACKET");}
+    ;
 %
