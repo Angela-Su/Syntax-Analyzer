@@ -27,3 +27,25 @@
 
 prog_start: function { printf("prog_start -> function\n");}
         ;
+
+functions: /*empty*/{printf("functions -> epsilon\n");}
+            | function functions {printf("functions -> function functions\n");}
+        ;
+function: FUNCTION ident SEMICOLON BEGIN_PARAMS declarations END_PARAMS BEGIN_LOCALS delcarations END_LOCALS BEGIN_BODY statements END_BODY
+            {printf("function --> FUNCTION IDENT SEMICOLON BEGIN_PARAMS declarations END_PARAMS BEGIN_LOCALS declarations END_LOCALS BEGIN BODY statements END_BODY");}
+        ;
+statements: /*empty*/ {printf("statements -> epsilon\n");}
+            | statement SEMICOLON statements {printf("statements -> statement SEMICOLON statements\n");}
+        ;
+statement: var ASSIGN expression { printf("statement -> var ASSIGN expression\n");}
+            | IF bool_exp THEN statements ENDIF {printf("statement -> IF bool_exp THEN statements ENDIF\n");}
+            | IF bool_exp THEN statements ELSE statements ENDIF { printf("IF bool_exp THEN statements ELSE statements ENDIF\n");}
+            | WHILE bool_exp BEGINLOOP statements ENDIF {printf("WHILE bool_exp BEGINLOOP statements ENDIF\n");}
+            | DO BEGINLOOP statements ENDLOOP WHILE bool_exp {printf("DO BEGINLOOP statements ENDLOOP WHILE bool_exp\n");}
+            | FOR vars ASSIGN NUMBER SEMICOLON bool_exp SEMICOLON vars ASSIGN expression BEGINLOOP statements ENDLOOP {printf("FOR vars ASSIGN NUMBER SEMICOLON bool_exp SEMICOLON vars ASSIGN expression BEGINLOOP statements ENDLOOP");}
+            | READ vars { printf("statement -> READ vars\n");}
+            | WRITE vars { printf("statements -> WRITE vars\n");}
+            | CONTINUE { printf("statement -> CONTINUE\n");}
+            | RETURN expression {printf("statement -> RETURN expression\n");}
+        ;
+%
