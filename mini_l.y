@@ -48,6 +48,24 @@ statement: var ASSIGN expression { printf("statement -> var ASSIGN expression\n"
             | CONTINUE { printf("statement -> CONTINUE\n");}
             | RETURN expression {printf("statement -> RETURN expression\n");}
         ;
+        
+bool_expr:          relation_and_expr {printf("relation_and_expr -> relation_expr\n");}
+            | relation_and_expr OR bool_expr {printf("relation_and_expr -> relation_expr OR bool_expr\n");}
+            ;
+
+relation_and_expr:  relation_expr {printf("relation_and_expr -> relation_expr\n";}
+            | relation_expr AND relation_and_expr {printf(relation_and_expr -> relation_expr AND relation_and_expr\n");}
+            ;
+
+relation_expr:      expression comp expression {printf("relation_expr -> expression comp expression\n";)}
+            | NOT expression comp expression {printf("relation_expr -> NOT expression comp expression\n";)}
+            | TRUE {printf("relation_expr -> TRUE\n");}
+            | NOT TRUE {printf("relation_expr -> NOT TRUE\n");}
+            | FALSE {printf("relation_expr -> FALSE\n");}
+            | NOT FALSE {printf("relation_expr -> NOT FALSE\n");}
+            | L_PAREN bool_expr R_PAREN {printf("relation_expr -> L_PAREN bool_expr R_PAREN\n");}
+            | NOT L_PAREN bool_expr R_PAREN {printf("relation_expr -> NOT L_PAREN bool_expr R_PAREN\n");}
+            ;
 
 multiplicative-expr: term {printf("term\n");}
                     | term MULT multiplicative-expr {printf("term MULT multiplicative-expr\n");}
@@ -69,4 +87,19 @@ vars:   /*empty*/ {printf("statements -> epsilon\n");}
 var: IDENT {printf("IDENT\n");}
     | IDENT L_SQUARE_BRACKET expression R_SQUARE_BRACKET {printf("IDENT L_SQUARE_BRACKET expression R_SQUARE_BRACKET");}
     ;
-%
+    
+%%
+int main(int argc, char ** argv) {
+    if(argc > 1) {
+        yyin = fopen(argv[1], "r");
+        if(yyin == NULL){
+            printf("syntax: %s filename", argv[0]);
+        }
+    }
+    yyparse();
+    return 0;
+}
+
+void yyerror(const char *msg) {
+    printf("Error: Line %d, position %d: %s \n", currLine, currPos, msg);
+}
