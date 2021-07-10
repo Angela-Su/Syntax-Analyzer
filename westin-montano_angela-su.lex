@@ -50,29 +50,29 @@ true            printf("TRUE\n"); num_columns += yyleng;
 false           printf("FALSE\n"); num_columns += yyleng;
 return          printf("RETURN\n"); num_columns += yyleng;
 
-"-"             {printf("SUB\n"); num_columns += yyleng;} 
-"+"             {printf("ADD\n"); num_columns += yyleng;}
-"*"             {printf("MULT\n"); num_columns += yyleng;}
-"/"             {printf("DIV\n"); num_columns += yyleng;}
-"%"             {printf("MOD\n"); num_columns += yyleng;}
+"-"             {return SUB; num_columns += yyleng;} 
+"+"             {return ADD; num_columns += yyleng;}
+"*"             {return MULT; num_columns += yyleng;}
+"/"             {return DIV; num_columns += yyleng;}
+"%"             {return MOD; num_columns += yyleng;}
 
-"="             {printf("EQ\n"); num_columns += yyleng;}
-"<>"            {printf("NEQ\n"); num_columns += yyleng;}
-"<"             {printf("LT\n"); num_columns += yyleng;}
-">"             {printf("GT\n"); num_columns += yyleng;}
-"<="            {printf("LTE\n"); num_columns += yyleng;}
-">="            {printf("GTE\n"); num_columns += yyleng;}
+"=="             {return EQ; num_columns += yyleng;}
+"<>"            {return NEQ; num_columns += yyleng;}
+"<"             {return LT; num_columns += yyleng;}
+">"             {return GT; num_columns += yyleng;}
+"<="            {return LTE; num_columns += yyleng;}
+">="            {return GTE; num_columns += yyleng;}
 
-{ID}            {printf("IDENT %s\n", yytext); num_columns+=yyleng;}
+{ID}            {printf("IDENT %s\n", yytext); num_columns+=yyleng;} /* Not sure what to do here !!!!!!!!!!!!!!!!*/
 
-";"             printf("SEMICOLON\n"); num_columns += yyleng;
-":"             {printf("COLON\n"); num_columns += yyleng;}
-","             {printf("COMMA\n"); num_columns += yyleng;}
-"("             {printf("L_PAREN\n"); num_columns += yyleng;}
-")"             {printf("R_PAREN\n"); num_columns += yyleng;}
-"["             {printf("L_SQUARE_BRACKET\n");num_columns+=yyleng;}
-"]"             {printf("R_SQUARE_BRACKET\n");num_columns+=yyleng;}
-":="            {printf("ASSIGN\n");num_columns+=yyleng;}
+";"             {return SEMICOLON; num_columns += yyleng;
+":"             {return COLON; num_columns += yyleng;}
+","             {return COMMA; num_columns += yyleng;}
+"("             {return L_PAREN; num_columns += yyleng;}
+")"             {return R_PAREN; num_columns += yyleng;}
+"["             {return L_SQUARE_BRACKET;num_columns+=yyleng;}
+"]"             {return R_SQUARE_BRACKET;num_columns+=yyleng;}
+":="            {return ASSIGN;num_columns+=yyleng;}
 [ ]             num_columns++;
 \t              num_columns+=4;
 \n           {num_lines++; num_columns = 1;}
@@ -82,7 +82,7 @@ return          printf("RETURN\n"); num_columns += yyleng;
 .               {printf("Error at line $d, column %d: unrecognized symbol \"%s\"\n", num_lines, num_columns, yytext); exit(-1);}
 
 
-            
+/*            
 %%
 int main(int argc, char **argv){
     ++argv, --argc;
@@ -96,3 +96,4 @@ int main(int argc, char **argv){
     }
     yylex();
 }
+*/

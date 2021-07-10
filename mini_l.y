@@ -72,7 +72,7 @@ comp: EQ {printf("comp -> EQ\n");}
     | GT {printf("comp -> GT\n");}
     | LTE {printf("comp -> LTE\n");}
     | GTE {printf("comp -> GTE\n");}
-    ;
+    
 expressions: expression COMMA expressions {printf("expressions -> expression COMMA expressions\n");}
             | expression {printf("expressions-> expression\n");}
             ;
