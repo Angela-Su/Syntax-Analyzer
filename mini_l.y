@@ -105,7 +105,7 @@ term: SUB var {printf("term -> SUB var\n");}
     /*| IDENT L_PAREN expression R_PAREN {printf("term -> IDENT L_PAREN expression R_PAREN\n");} Dont think this is needed*/
     | IDENT L_PAREN expressions R_PAREN {printf("term -> IDENT L_PAREN expressions R_PAREN\n");}
     ;
-vars:   /*empty*/ {printf("statements -> epsilon\n");}
+vars:  var {printf("vars -> var\n");}
         |var COMMA vars {printf("vars -> var COMMA vars\n");}
         ;
 var: IDENT {printf("IDENT\n");}

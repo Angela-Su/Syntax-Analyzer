@@ -79,10 +79,11 @@ Grammar
    56     | IDENT L_PAREN expressions R_PAREN
 
    57 vars: %empty
-   58     | var COMMA vars
+   58     | var
+   59     | var COMMA vars
 
-   59 var: IDENT
-   60    | IDENT L_SQUARE_BRACKET expression R_SQUARE_BRACKET
+   60 var: IDENT
+   61    | IDENT L_SQUARE_BRACKET expression R_SQUARE_BRACKET
 
 
 Terminals, with rules where they appear
@@ -116,14 +117,14 @@ TRUE (281) 29 30
 FALSE (282) 31 32
 SEMICOLON (283) 4 6 12 18
 COLON (284) 7 8 9 10
-COMMA (285) 8 10 41 58
+COMMA (285) 8 10 41 59
 L_PAREN (286) 23 24 33 34 52 55 56
 R_PAREN (287) 23 24 33 34 52 55 56
-L_SQUARE_BRACKET (288) 9 10 60
-R_SQUARE_BRACKET (289) 9 10 60
+L_SQUARE_BRACKET (288) 9 10 61
+R_SQUARE_BRACKET (289) 9 10 61
 ASSIGN (290) 13 18
 RETURN (291) 22
-IDENT (292) 4 7 8 9 10 56 59 60
+IDENT (292) 4 7 8 9 10 56 60 61
 NUMBER (293) 9 10 18 51 54
 OR (294) 24
 AND (295) 26
@@ -170,15 +171,15 @@ comp (64)
 expressions (65)
     on left: 41 42, on right: 41 56
 expression (66)
-    on left: 43 44 45, on right: 13 18 22 27 28 41 42 52 55 60
+    on left: 43 44 45, on right: 13 18 22 27 28 41 42 52 55 61
 multiplicative-expr (67)
     on left: 46 47 48 49, on right: 43 44 45 47 48 49
 term (68)
     on left: 50 51 52 53 54 55 56, on right: 46 47 48 49
 vars (69)
-    on left: 57 58, on right: 18 19 20 58
+    on left: 57 58 59, on right: 18 19 20 59
 var (70)
-    on left: 59 60, on right: 13 50 53 58
+    on left: 60 61, on right: 13 50 53 58 59
 
 
 State 0
@@ -555,12 +556,12 @@ State 41
 
 State 42
 
-   59 var: IDENT .
-   60    | IDENT . L_SQUARE_BRACKET expression R_SQUARE_BRACKET
+   60 var: IDENT .
+   61    | IDENT . L_SQUARE_BRACKET expression R_SQUARE_BRACKET
 
     L_SQUARE_BRACKET  shift, and go to state 64
 
-    $default  reduce using rule 59 (var)
+    $default  reduce using rule 60 (var)
 
 
 State 43
@@ -643,9 +644,12 @@ State 51
 
 State 52
 
-   58 vars: var . COMMA vars
+   58 vars: var .
+   59     | var . COMMA vars
 
     COMMA  shift, and go to state 79
+
+    $default  reduce using rule 58 (vars)
 
 
 State 53
@@ -701,13 +705,13 @@ State 56
 State 57
 
    56 term: IDENT . L_PAREN expressions R_PAREN
-   59 var: IDENT .
-   60    | IDENT . L_SQUARE_BRACKET expression R_SQUARE_BRACKET
+   60 var: IDENT .
+   61    | IDENT . L_SQUARE_BRACKET expression R_SQUARE_BRACKET
 
     L_PAREN           shift, and go to state 82
     L_SQUARE_BRACKET  shift, and go to state 64
 
-    $default  reduce using rule 59 (var)
+    $default  reduce using rule 60 (var)
 
 
 State 58
@@ -772,7 +776,7 @@ State 63
 
 State 64
 
-   60 var: IDENT L_SQUARE_BRACKET . expression R_SQUARE_BRACKET
+   61 var: IDENT L_SQUARE_BRACKET . expression R_SQUARE_BRACKET
 
     L_PAREN  shift, and go to state 56
     IDENT    shift, and go to state 57
@@ -971,7 +975,7 @@ State 78
 
 State 79
 
-   58 vars: var COMMA . vars
+   59 vars: var COMMA . vars
 
     IDENT  shift, and go to state 42
 
@@ -1112,7 +1116,7 @@ State 90
 
 State 91
 
-   60 var: IDENT L_SQUARE_BRACKET expression . R_SQUARE_BRACKET
+   61 var: IDENT L_SQUARE_BRACKET expression . R_SQUARE_BRACKET
 
     R_SQUARE_BRACKET  shift, and go to state 124
 
@@ -1322,9 +1326,9 @@ State 112
 
 State 113
 
-   58 vars: var COMMA vars .
+   59 vars: var COMMA vars .
 
-    $default  reduce using rule 58 (vars)
+    $default  reduce using rule 59 (vars)
 
 
 State 114
@@ -1402,9 +1406,9 @@ State 123
 
 State 124
 
-   60 var: IDENT L_SQUARE_BRACKET expression R_SQUARE_BRACKET .
+   61 var: IDENT L_SQUARE_BRACKET expression R_SQUARE_BRACKET .
 
-    $default  reduce using rule 60 (var)
+    $default  reduce using rule 61 (var)
 
 
 State 125
