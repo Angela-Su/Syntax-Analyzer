@@ -64,7 +64,7 @@ E_ID_1  [0-9_][a-zA-Z0-9_]*
 "<="            {return LTE; num_columns += yyleng;}
 ">="            {return GTE; num_columns += yyleng;}
 
-"ID"            {return IDENT; num_columns+=yyleng;} 
+{ID}            {return IDENT; num_columns+=yyleng;} 
 
 ";"             {return SEMICOLON; num_columns += yyleng;}
 ":"             {return COLON; num_columns += yyleng;}
@@ -78,6 +78,6 @@ E_ID_1  [0-9_][a-zA-Z0-9_]*
 \t              num_columns+=4;
 \n           {num_lines++; num_columns = 1;}
 "##"[^\n]*"\n"  num_lines++; num_columns = 1;
-<<EOF>>         exit(0);
+
 
 .               {printf("Error at line $d, column %d: unrecognized symbol \"%s\"\n", num_lines, num_columns, yytext); exit(-1);}

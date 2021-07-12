@@ -25,16 +25,20 @@
 %left MULT DIV MOD
 %%
 
-prog_start: functions { printf("prog_start -> function\n");}
+prog_start: functions { printf("prog_start -> functions\n");}
         ;
 
 functions: /*empty*/{printf("functions -> epsilon\n");}
             | function functions {printf("functions -> function functions\n");}
         ;
-function: FUNCTION IDENT SEMICOLON BEGINPARAMS declaration ENDPARAMS BEGINLOCALS declaration ENDLOCALS BEGINBODY statements ENDBODY
-            {printf("function --> FUNCTION IDENT SEMICOLON BEGINPARAMS declaration ENDPARAMS BEGINLOCALS declaration ENDLOCALS BEGIN BODY statements ENDBODY");}
+function: FUNCTION IDENT SEMICOLON BEGINPARAMS declarations ENDPARAMS BEGINLOCALS declarations ENDLOCALS BEGINBODY statements ENDBODY
+            {printf("function --> FUNCTION IDENT SEMICOLON BEGINPARAMS declarations ENDPARAMS BEGINLOCALS declarations ENDLOCALS BEGIN BODY statements ENDBODY");}
         ;
-        
+
+declarations: /*empty*/{printf("declarations -> epsilon\n");}
+            | declaration SEMICOLON declarations {printf("declarations -> declaration SEMICOLON declarations\n");}
+            ;
+
 declaration:        IDENT COLON INTEGER {printf("declaration -> IDENT COLON INTEGER\n");}
             | IDENT COMMA IDENT COLON INTEGER {printf("declaration -> IDENT COMMA IDENT COLON INTEGER\n");}
             | IDENT COLON ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER {printf("declaration -> IDENT COLON ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER\n");}
