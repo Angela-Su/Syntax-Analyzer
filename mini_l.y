@@ -34,9 +34,17 @@ functions: /*empty*/{printf("functions -> epsilon\n");}
 function: FUNCTION ident SEMICOLON BEGIN_PARAMS declarations END_PARAMS BEGIN_LOCALS delcarations END_LOCALS BEGIN_BODY statements END_BODY
             {printf("function --> FUNCTION IDENT SEMICOLON BEGIN_PARAMS declarations END_PARAMS BEGIN_LOCALS declarations END_LOCALS BEGIN BODY statements END_BODY");}
         ;
+        
+declaration:        ident COLON integer {printf("declaration -> ident COLON integer\n");}
+            | ident COMMA ident COLON integer {printf("declaration -> ident COMMA ident COLON integer\n");}
+            | ident COLON ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF integer {printf("declaration -> ident COLON ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF integer\n");}
+            | ident COMMA ident COLON L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF integer {printf("declaration -> ident COMMA ident COLON L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF integer\n");}        
+        ;
+        
 statements: /*empty*/ {printf("statements -> epsilon\n");}
             | statement SEMICOLON statements {printf("statements -> statement SEMICOLON statements\n");}
         ;
+        
 statement: var ASSIGN expression { printf("statement -> var ASSIGN expression\n");}
             | IF bool_exp THEN statements ENDIF {printf("statement -> IF bool_exp THEN statements ENDIF\n");}
             | IF bool_exp THEN statements ELSE statements ENDIF { printf("statement -> IF bool_exp THEN statements ELSE statements ENDIF\n");}
