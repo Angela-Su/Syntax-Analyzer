@@ -1,6 +1,7 @@
 /*Westin Montano & Angela Su worked together on the following code*/
 
-%{
+%{  
+    #include "y.tab.h"
     int num_lines = 1, num_columns = 1; 
 %}
 
@@ -20,35 +21,35 @@ E_ID_1  [0-9_][a-zA-Z0-9_]*
 {E_ID_1}        {printf("Error at line %d, column %d: identifier \"%s\" must begin with a letter\n",
                  num_lines, num_columns, yytext); exit(-1);}
 
-"function"      (return FUNCTION); num_columns += yyleng;
-"beginparams"   (return BEGINPARAMS); num_columns += yyleng;
-"endparams"     (return ENDPARAMS); num_columns += yyleng;
-"beginlocals"   (return BEGINLOCALS); num_columns += yyleng;
-"endlocals"     (return ENDLOCALS); num_columns += yyleng;
-"beginbody"     (return BEGINBODY); num_columns += yyleng;
-"endbody"       (return ENDBODY); num_columns += yyleng;
-"integer"       (return INTEGER); num_columns += yyleng;
-"array"         (return ARRAY); num_columns += yyleng;
-"enum"          (return ENUM); num_columns += yyleng;
-"of"            (return OF); num_columns += yyleng;
-"if"            (return IF); num_columns += yyleng;
-"then"          (return THEN); num_columns += yyleng;
-"endif"         (return ENDIF); num_columns += yyleng;
-"else"          (return ELSE); num_columns += yyleng;
-"while"         (return WHILE); num_columns += yyleng;
-"do"            (return DO); num_columns += yyleng;
-"for"           (return FOR); num_columns += yyleng;
-"beginloop"     (return BEGINLOOP); num_columns += yyleng;
-"endloop"       (return ENDLOOP); num_columns += yyleng;
-"continue"      (return CONTINUE); num_columns += yyleng;
-"read"          (return READ); num_columns += yyleng;
-"write"         (return WRITE); num_columns += yyleng;
-"and"           (return AND); num_columns += yyleng;
-"or"            (return OR); num_columns += yyleng;
-"not"           (return NOT); num_columns += yyleng;
-"true"          (return TRUE); num_columns += yyleng;
-"false"         (return FALSE); num_columns += yyleng;
-"return"        (return RETURN); num_columns += yyleng;
+"function"      {return FUNCTION; num_columns += yyleng;}
+"beginparams"   {return BEGINPARAMS; num_columns += yyleng;}
+"endparams"     {return ENDPARAMS; num_columns += yyleng;}
+"beginlocals"   {return BEGINLOCALS; num_columns += yyleng;}
+"endlocals"     {return ENDLOCALS; num_columns += yyleng;}
+"beginbody"     {return BEGINBODY; num_columns += yyleng;}
+"endbody"       {return ENDBODY; num_columns += yyleng;}
+"integer"       {return INTEGER; num_columns += yyleng;}
+"array"         {return ARRAY; num_columns += yyleng;}
+"enum"          {return ENUM; num_columns += yyleng;}
+"of"            {return OF; num_columns += yyleng;}
+"if"            {return IF; num_columns += yyleng;}
+"then"          {return THEN; num_columns += yyleng;}
+"endif"         {return ENDIF; num_columns += yyleng;}
+"else"          {return ELSE; num_columns += yyleng;}
+"while"         {return WHILE; num_columns += yyleng;}
+"do"            {return DO; num_columns += yyleng;}
+"for"           {return FOR; num_columns += yyleng;}
+"beginloop"     {return BEGINLOOP; num_columns += yyleng;}
+"endloop"       {return ENDLOOP; num_columns += yyleng;}
+"continue"      {return CONTINUE; num_columns += yyleng;}
+"read"          {return READ; num_columns += yyleng;}
+"write"         {return WRITE; num_columns += yyleng;}
+"and"           {return AND; num_columns += yyleng;}
+"or"            {return OR; num_columns += yyleng;}
+"not"           {return NOT; num_columns += yyleng;}
+"true"          {return TRUE; num_columns += yyleng;}
+"false"         {return FALSE; num_columns += yyleng;}
+"return"        {return RETURN; num_columns += yyleng;}
 
 "-"             {return SUB; num_columns += yyleng;} 
 "+"             {return ADD; num_columns += yyleng;}
@@ -63,9 +64,9 @@ E_ID_1  [0-9_][a-zA-Z0-9_]*
 "<="            {return LTE; num_columns += yyleng;}
 ">="            {return GTE; num_columns += yyleng;}
 
-"ID"            {return IDENT; num_columns+=yyleng;} /* Not sure what to do here !!!!!!!!!!!!!!!!*/
+"ID"            {return IDENT; num_columns+=yyleng;} 
 
-";"             {return SEMICOLON; num_columns += yyleng;
+";"             {return SEMICOLON; num_columns += yyleng;}
 ":"             {return COLON; num_columns += yyleng;}
 ","             {return COMMA; num_columns += yyleng;}
 "("             {return L_PAREN; num_columns += yyleng;}
@@ -80,18 +81,3 @@ E_ID_1  [0-9_][a-zA-Z0-9_]*
 <<EOF>>         exit(0);
 
 .               {printf("Error at line $d, column %d: unrecognized symbol \"%s\"\n", num_lines, num_columns, yytext); exit(-1);}
-
-
-/*            
-%%
-int main(int argc, char **argv){
-    ++argv, --argc;
-    if(argc > 0){
-        yyin = fopen(argv[0], "r");
-    }
-    else{
-        yyin = stdin;
-    }
-    yylex();
-}
-*/
