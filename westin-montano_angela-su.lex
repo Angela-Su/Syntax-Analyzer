@@ -63,7 +63,7 @@ E_ID_1  [0-9_][a-zA-Z0-9_]*
 "<="            {return LTE; num_columns += yyleng;}
 ">="            {return GTE; num_columns += yyleng;}
 
-{ID}            {printf("IDENT %s\n", yytext); num_columns+=yyleng;} /* Not sure what to do here !!!!!!!!!!!!!!!!*/
+"ID"            {return IDENT; num_columns+=yyleng;} /* Not sure what to do here !!!!!!!!!!!!!!!!*/
 
 ";"             {return SEMICOLON; num_columns += yyleng;
 ":"             {return COLON; num_columns += yyleng;}
