@@ -32,7 +32,7 @@ functions: /*empty*/{printf("functions -> epsilon\n");}
             | function functions {printf("functions -> function functions\n");}
         ;
 function: FUNCTION IDENT SEMICOLON BEGINPARAMS declarations ENDPARAMS BEGINLOCALS declarations ENDLOCALS BEGINBODY statements ENDBODY
-            {printf("function --> FUNCTION IDENT SEMICOLON BEGINPARAMS declarations ENDPARAMS BEGINLOCALS declarations ENDLOCALS BEGIN BODY statements ENDBODY");}
+            {printf("function -> FUNCTION IDENT SEMICOLON BEGINPARAMS declarations ENDPARAMS BEGINLOCALS declarations ENDLOCALS BEGIN BODY statements ENDBODY\n");}
         ;
 
 declarations: /*empty*/{printf("declarations -> epsilon\n");}

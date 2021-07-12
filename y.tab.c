@@ -435,7 +435,7 @@ union yyalloc
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  18
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  62
+#define YYNRULES  61
 /* YYNSTATES -- Number of states.  */
 #define YYNSTATES  155
 
@@ -494,7 +494,7 @@ static const yytype_uint8 yyrline[] =
       73,    74,    75,    76,    77,    78,    80,    81,    82,    83,
       84,    85,    87,    88,    90,    91,    92,    94,    95,    96,
       97,    99,   100,   101,   102,   103,   104,   106,   108,   109,
-     110,   112,   113
+     111,   112
 };
 #endif
 
@@ -571,18 +571,18 @@ static const yytype_uint8 yydefact[] =
        3,     0,     0,     2,     3,     0,     1,     4,     0,     6,
        0,     0,     0,     0,     0,     0,     6,     8,     0,     0,
        6,     7,     0,     0,     0,     0,     9,     0,     0,     0,
-       0,    12,     0,     0,     0,     0,    58,     0,    22,    58,
-      58,     0,    61,     0,     0,     0,    10,     0,     0,     0,
-       0,     0,    59,    12,    20,    21,     0,    61,    55,     0,
+       0,    12,     0,     0,     0,     0,     0,     0,    22,     0,
+       0,     0,    60,     0,     0,     0,    10,     0,     0,     0,
+       0,     0,    58,    12,    20,    21,     0,    60,    55,     0,
       23,    44,    47,    54,     0,     5,    12,     0,    11,    30,
-      32,     0,     0,     0,    26,     0,    12,    12,     0,    58,
+      32,     0,     0,     0,    26,     0,    12,    12,     0,     0,
        0,     0,     0,     0,    52,    51,     0,     0,     0,     0,
        0,     0,    13,    14,     0,     0,    31,    33,     0,     0,
       24,     0,     0,    38,    40,    39,    41,    36,    37,     0,
-       0,     0,     0,    60,     0,    56,     0,    43,     0,    45,
-      46,    48,    49,    50,    62,     0,    34,     0,     0,     0,
+       0,     0,     0,    59,     0,    56,     0,    43,     0,    45,
+      46,    48,    49,    50,    61,     0,    34,     0,     0,     0,
       27,    28,    15,    12,    17,     0,     0,    57,     0,    53,
-      35,    29,    25,     0,     0,    18,    42,    16,    58,     0,
+      35,    29,    25,     0,     0,    18,    42,    16,     0,     0,
        0,     0,    12,     0,    19
 };
 
@@ -676,7 +676,7 @@ static const yytype_uint8 yyr1[] =
       63,    63,    63,    63,    63,    63,    64,    64,    64,    64,
       64,    64,    65,    65,    66,    66,    66,    67,    67,    67,
       67,    68,    68,    68,    68,    68,    68,    68,    69,    69,
-      69,    70,    70
+      70,    70
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
@@ -687,8 +687,8 @@ static const yytype_uint8 yyr2[] =
        2,     2,     1,     2,     3,     5,     1,     3,     3,     4,
        1,     2,     1,     2,     3,     4,     1,     1,     1,     1,
        1,     1,     3,     1,     1,     3,     3,     1,     3,     3,
-       3,     2,     2,     4,     1,     1,     3,     4,     0,     1,
-       3,     1,     4
+       3,     2,     2,     4,     1,     1,     3,     4,     1,     3,
+       1,     4
 };
 
 
@@ -1384,7 +1384,7 @@ yyreduce:
 
   case 5:
 #line 35 "mini_l.y" /* yacc.c:1646  */
-    {printf("function --> FUNCTION IDENT SEMICOLON BEGINPARAMS declarations ENDPARAMS BEGINLOCALS declarations ENDLOCALS BEGIN BODY statements ENDBODY");}
+    {printf("function -> FUNCTION IDENT SEMICOLON BEGINPARAMS declarations ENDPARAMS BEGINLOCALS declarations ENDLOCALS BEGIN BODY statements ENDBODY\n");}
 #line 1389 "y.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1702,36 +1702,30 @@ yyreduce:
 
   case 58:
 #line 108 "mini_l.y" /* yacc.c:1646  */
-    {printf("vars -> epsilon\n");}
+    {printf("vars -> var\n");}
 #line 1707 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 59:
 #line 109 "mini_l.y" /* yacc.c:1646  */
-    {printf("vars -> var\n");}
+    {printf("vars -> var COMMA vars\n");}
 #line 1713 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 60:
-#line 110 "mini_l.y" /* yacc.c:1646  */
-    {printf("vars -> var COMMA vars\n");}
+#line 111 "mini_l.y" /* yacc.c:1646  */
+    {printf("IDENT\n");}
 #line 1719 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 61:
 #line 112 "mini_l.y" /* yacc.c:1646  */
-    {printf("IDENT\n");}
+    {printf("IDENT L_SQUARE_BRACKET expression R_SQUARE_BRACKET");}
 #line 1725 "y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 62:
-#line 113 "mini_l.y" /* yacc.c:1646  */
-    {printf("IDENT L_SQUARE_BRACKET expression R_SQUARE_BRACKET");}
-#line 1731 "y.tab.c" /* yacc.c:1646  */
-    break;
 
-
-#line 1735 "y.tab.c" /* yacc.c:1646  */
+#line 1729 "y.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1959,7 +1953,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 116 "mini_l.y" /* yacc.c:1906  */
+#line 115 "mini_l.y" /* yacc.c:1906  */
 
 int main(int argc, char ** argv) {
     if(argc > 1) {
