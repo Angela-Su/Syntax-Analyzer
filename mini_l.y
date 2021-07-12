@@ -2,8 +2,8 @@
     #include <stdio.h>
     #include <stdlib.h>
     void yyerror(const char *msg);
-    extern int currLine;
-    extern int currPos;
+    extern int num_lines;
+    extern int num_columns;
     FILE *yyin;
 %}
 
@@ -13,7 +13,7 @@
 }
 %error-verbose
 %start prog_start
-%token FUNCTION BEGINPARAMS ENDPARAMS BEGINLOCALS ENDLOCALS BEGINBODY ENDBODY INTEGER ARRAY OF IF THEN ENDIF ELSE WHILE FOR DO BEGINLOOP ENDLOOP CONTINUE READ WRITE TRUE FALSE SEMICOLON COLON COMMA L_PAREN R_PAREN L_SQUARE_BRACKET R_SQUARE_BRACKET ASSIGN RETURN
+%token FUNCTION BEGINPARAMS ENDPARAMS BEGINLOCALS ENDLOCALS BEGINBODY ENDBODY INTEGER ARRAY ENUM OF IF THEN ENDIF ELSE WHILE FOR DO BEGINLOOP ENDLOOP CONTINUE READ WRITE TRUE FALSE SEMICOLON COLON COMMA L_PAREN R_PAREN L_SQUARE_BRACKET R_SQUARE_BRACKET ASSIGN RETURN
 %token <id_val> IDENT
 %token <num_val> NUMBER
 %right ASSIGN
@@ -64,8 +64,8 @@ bool_expr:          relation_and_expr {printf("relation_and_expr -> relation_exp
 relation_and_expr:  relation_expr {printf("relation_and_expr -> relation_expr\n");}
             | relation_expr AND relation_and_expr {printf("relation_and_expr -> relation_expr AND relation_and_expr\n");}
             ;
-relation_expr:      expression comp expression {printf("relation_expr -> expression comp expression\n";)}
-            | NOT expression comp expression {printf("relation_expr -> NOT expression comp expression\n";)}
+relation_expr:      expression comp expression {printf("relation_expr -> expression comp expression\n");}
+            | NOT expression comp expression {printf("relation_expr -> NOT expression comp expression\n");}
             | TRUE {printf("relation_expr -> TRUE\n");}
             | NOT TRUE {printf("relation_expr -> NOT TRUE\n");}
             | FALSE {printf("relation_expr -> FALSE\n");}
@@ -94,10 +94,10 @@ multiplicative-expr: term {printf("multiplicative-expr -> term\n");}
                     ;
 term: SUB var {printf("term -> SUB var\n");}
     | SUB NUMBER {printf("term -> SUB NUMBER\n");}
-    | SUB L_PAREN expression R_PAREN {printf("term -> SUB R_PAREN expression L_PAREN"\n);}
+    | SUB L_PAREN expression R_PAREN {printf("term -> SUB R_PAREN expression L_PAREN\n");}
     | var {printf("term -> var\n");}
     | NUMBER {printf("term -> NUMBER\n");}
-    | L_PAREN expression R_PAREN {printf("term -> R_PAREN expression L_PAREN"\n);}
+    | L_PAREN expression R_PAREN {printf("term -> R_PAREN expression L_PAREN\n");}
     /*| IDENT L_PAREN expression R_PAREN {printf("term -> IDENT L_PAREN expression R_PAREN\n");} Dont think this is needed*/
     | IDENT L_PAREN expressions R_PAREN {printf("term -> IDENT L_PAREN expressions R_PAREN\n");}
     ;
@@ -120,5 +120,5 @@ int main(int argc, char ** argv) {
     return 0;
 }
 void yyerror(const char *msg) {
-    printf("Error: Line %d, position %d: %s \n", currLine, currPos, msg);
+    printf("Error: Line %d, position %d: %s \n", num_lines, num_columns, msg);
 }
