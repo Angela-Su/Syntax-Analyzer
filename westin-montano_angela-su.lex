@@ -56,7 +56,7 @@ E_ID_1  [0-9_][a-zA-Z0-9_]*
 "/"             {return DIV; num_columns += yyleng;}
 "%"             {return MOD; num_columns += yyleng;}
 
-"=="             {return EQ; num_columns += yyleng;}
+"=="            {return EQ; num_columns += yyleng;}
 "<>"            {return NEQ; num_columns += yyleng;}
 "<"             {return LT; num_columns += yyleng;}
 ">"             {return GT; num_columns += yyleng;}
@@ -86,8 +86,6 @@ E_ID_1  [0-9_][a-zA-Z0-9_]*
 %%
 int main(int argc, char **argv){
     ++argv, --argc;
-
-
     if(argc > 0){
         yyin = fopen(argv[0], "r");
     }
