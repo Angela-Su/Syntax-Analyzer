@@ -844,7 +844,7 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 YY_RULE_SETUP
 #line 16 "westin-montano_angela-su.lex"
-printf("NUMBER %s\n", yytext);
+{return NUMBER; num_columns +=yyleng;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP

@@ -51,7 +51,7 @@ statements: /*empty*/ {printf("statements -> epsilon\n");}
         
 statement: var ASSIGN expression { printf("statement -> var ASSIGN expression\n");}
             | IF bool_expr THEN statements ENDIF {printf("statement -> IF bool_expr THEN statements ENDIF\n");}
-            | IF bool_expr THEN statements ELSE statements ENDIF { printf("statement -> IF bool_expr THEN statements ELSE statements ENDIF\n");}
+            | IF  bool_expr THEN statements ELSE statements ENDIF { printf("statement -> IF bool_expr THEN statements ELSE statements ENDIF\n");}
             | WHILE bool_expr BEGINLOOP statements ENDIF {printf("statement -> WHILE bool_expr BEGINLOOP statements ENDIF\n");}
             | DO BEGINLOOP statements ENDLOOP WHILE bool_expr {printf("statement -> DO BEGINLOOP statements ENDLOOP WHILE bool_expr\n");}
             | FOR vars ASSIGN NUMBER SEMICOLON bool_expr SEMICOLON vars ASSIGN expression BEGINLOOP statements ENDLOOP {printf("statement -> FOR vars ASSIGN NUMBER SEMICOLON bool_expr SEMICOLON vars ASSIGN expression BEGINLOOP statements ENDLOOP");}
@@ -61,12 +61,12 @@ statement: var ASSIGN expression { printf("statement -> var ASSIGN expression\n"
             | RETURN expression {printf("statement -> RETURN expression\n");}
         ;
         
-bool_expr:          relation_and_expr {printf("relation_and_expr -> relation_expr\n");}
-            | relation_and_expr OR bool_expr {printf("relation_and_expr -> relation_expr OR bool_expr\n");}
+bool_expr:         L_PAREN relation_and_expr R_PAREN{printf("relation_and_expr -> relation_expr\n");}
+            | L_PAREN relation_and_expr OR bool_expr R_PAREN {printf("relation_and_expr -> relation_expr OR bool_expr\n");}
             ;
 
 relation_and_expr:  relation_expr {printf("relation_and_expr -> relation_expr\n");}
-            | relation_expr AND relation_and_expr {printf("relation_and_expr -> relation_expr AND relation_and_expr\n");}
+            | relation_expr AND relation_expr {printf("relation_and_expr -> relation_expr AND relation_and_expr\n");}
             ;
 relation_expr:      expression comp expression {printf("relation_expr -> expression comp expression\n");}
             | NOT expression comp expression {printf("relation_expr -> NOT expression comp expression\n");}

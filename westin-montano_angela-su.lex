@@ -13,7 +13,7 @@ E_ID_1  [0-9_][a-zA-Z0-9_]*
 
 
 %%
-{DIGIT}+        printf("NUMBER %s\n", yytext);
+{DIGIT}+        {return NUMBER; num_columns +=yyleng;}
 
 {E_ID_2}        {printf("Error at line %d, column %d: identifier \"%s\" cannot end with an underscore\n",
                  num_lines, num_columns, yytext); exit(-1);}
