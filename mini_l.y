@@ -25,7 +25,7 @@
 %left MULT DIV MOD
 %%
 
-prog_start: function { printf("prog_start -> function\n");}
+prog_start: functions { printf("prog_start -> function\n");}
         ;
 
 functions: /*empty*/{printf("functions -> epsilon\n");}
